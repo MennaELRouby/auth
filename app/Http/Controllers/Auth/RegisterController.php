@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
 
 
 class RegisterController extends Controller
@@ -21,7 +22,7 @@ class RegisterController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'user' => $user,
+            'user' =>new UserResource($user),
             'token' => $token
         ], 201);
     }

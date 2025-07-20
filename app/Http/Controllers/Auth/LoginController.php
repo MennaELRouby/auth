@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use APP\Http\Resources\UserResource;
+
 
 class LoginController extends Controller
 {
@@ -20,6 +22,6 @@ class LoginController extends Controller
             $user = Auth::user();
             // $user = User::where('email', $request->email)->firstOrFail();
             $token = $user->createToken('auth_token')->plainTextToken;
-            return response()->json(['message' => 'Login successful', 'user' => $user, 'token' => $token], 200);
+            return response()->json(['message' => 'Login successful', 'user' => new UserResource($user), 'token' => $token], 200);
 }
 }
